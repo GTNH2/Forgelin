@@ -11,7 +11,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.relauncher.Side
 import net.minecraftforge.common.MinecraftForge
 import org.apache.logging.log4j.LogManager
-import java.lang.reflect.Field
+
 import java.lang.reflect.Modifier
 import java.util.*
 import kotlin.reflect.full.companionObjectInstance
@@ -19,7 +19,7 @@ import kotlin.reflect.jvm.jvmName
 
 object ForgelinAutomaticEventSubscriber {
 	private val DEFAULT_SUBSCRIPTION_SIDES = EnumSet.allOf(Side::class.java)
-	private val LOGGER = LogManager.getLogger(ForgelinAutomaticEventSubscriber::class.java)
+	private val LOGGER = LogManager.getLogger(ForgelinAutomaticEventSubscriber::class.simpleName)
 
 	private val unregistered = mutableSetOf<Class<*>>()
 	private val registered = mutableSetOf<Any>()
@@ -37,7 +37,7 @@ object ForgelinAutomaticEventSubscriber {
 			val containedModId = containedMod.annotationInfo["modid"] as String
 
 			if (containedMod.annotationInfo["modLanguageAdapter"] != KotlinAdapter::class.qualifiedName) {
-				LOGGER.debug("Skipping @EventBusSubscriber injection for {} since it does not use KotlinAdapter", containedModId)
+				//LOGGER.debug("Skipping @EventBusSubscriber injection for {} since it does not use KotlinAdapter", containedModId)
 				return@forEach
 			}
 
